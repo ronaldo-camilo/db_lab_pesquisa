@@ -1,0 +1,306 @@
+{% extends 'pacientes/base.html' %}
+
+{% block title %}Exportar Dados{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">Exportar Dados</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Configurar Exportação</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" id="formExportar">
+                    {% csrf_token %}
+                    
+                    <!-- FORMATO -->
+                    <div class="mb-4">
+                        <label class="form-label"><strong>Formato de Exportação</strong></label>
+                        <div class="btn-group w-100" role="group">
+                            <input type="radio" class="btn-check" name="formato" id="excel" value="excel" checked>
+                            <label class="btn btn-outline-success" for="excel">
+                                <i class="bi bi-file-earmark-excel"></i> Excel (.xlsx)
+                            </label>
+                            
+                            <input type="radio" class="btn-check" name="formato" id="csv" value="csv">
+                            <label class="btn btn-outline-success" for="csv">
+                                <i class="bi bi-file-earmark-text"></i> CSV (.csv)
+                            </label>
+                            
+                            <input type="radio" class="btn-check" name="formato" id="visualizar" value="visualizar">
+                            <label class="btn btn-outline-success" for="visualizar">
+                                <i class="bi bi-eye"></i> Visualizar (imprimir)
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- FILTRO POR PROJETO -->
+                    <div class="mb-4">
+                        <label class="form-label"><strong>Filtrar por Projeto (Opcional)</strong></label>
+                        {{ form.projeto }}
+                        <small class="form-text text-muted">Deixe em branco para exportar todos os projetos</small>
+                    </div>
+                    
+                    <!-- SELEÇÃO DE CAMPOS -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label mb-0"><strong>Selecionar Campos para Exportar</strong></label>
+                            <div>
+                                <button type="button" class="btn btn-sm btn-outline-primary" id="selecionarTodos">
+                                    <i class="bi bi-check-all"></i> Selecionar Todos
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" id="desmarcarTodos">
+                                    <i class="bi bi-x-circle"></i> Desmarcar Todos
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i> 
+                            <strong>Dica:</strong> Deixe todos desmarcados para exportar apenas os <strong>3 campos-chave</strong> (Nome, Data Nascimento e Nome da Mãe).
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                                <!-- Dados Principais -->
+                                <h6 class="text-primary border-bottom pb-2 mb-3">
+                                    <i class="bi bi-star-fill"></i> Dados Principais
+                                </h6>
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input campo-checkbox" type="checkbox" name="campos_selecionados" value="nome_paciente" id="campo_nome_paciente">
+                                            <label class="form-check-label" for="campo_nome_paciente">Nome do Paciente</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input campo-checkbox" type="checkbox" name="campos_selecionados" value="data_nascimento" id="campo_data_nascimento">
+                                            <label class="form-check-label" for="campo_data_nascimento">Data de Nascimento</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input campo-checkbox" type="checkbox" name="campos_selecionados" value="nome_mae" id="campo_nome_mae">
+                                            <label class="form-check-label" for="campo_nome_mae">Nome da Mãe</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Identificação -->
+                                <h6 class="text-secondary border-bottom pb-2 mb-3">
+                                    <i class="bi bi-card-checklist"></i> Identificação e Projeto
+                                </h6>
+                                <div class="row mb-3">
+                                    {% for value, label in form.CAMPOS_DISPONIVEIS %}
+                                        {% if value in 'id_projeto,id_unico,projeto_original,sexo,rg,cpf,cid10,data_nascimento_mae,id_familiar,id_lpc_biob' %}
+                                        <div class="col-md-4 mb-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input campo-checkbox" type="checkbox" name="campos_selecionados" value="{{ value }}" id="campo_{{ value }}">
+                                                <label class="form-check-label" for="campo_{{ value }}">{{ label }}</label>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                
+                                <!-- Amostras Biológicas -->
+                                <h6 class="text-success border-bottom pb-2 mb-3">
+                                    <i class="bi bi-droplet"></i> Amostras Biológicas
+                                </h6>
+                                <div class="row mb-3">
+                                    {% for value, label in form.CAMPOS_DISPONIVEIS %}
+                                        {% if value in 'amostra_biologica,sangue,plasma,soro,pax_gene,saliva,scu,placenta,placenta_ffpe,dna,rna,proteina' %}
+                                        <div class="col-md-4 mb-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input campo-checkbox" type="checkbox" name="campos_selecionados" value="{{ value }}" id="campo_{{ value }}">
+                                                <label class="form-check-label" for="campo_{{ value }}">{{ label }}</label>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                
+                                <!-- Bioinformática -->
+                                <h6 class="text-info border-bottom pb-2 mb-3">
+                                    <i class="bi bi-diagram-3"></i> Bioinformática
+                                </h6>
+                                <div class="row mb-3">
+                                    {% for value, label in form.CAMPOS_DISPONIVEIS %}
+                                        {% if value in 'metiloma,dnam_gene,dna_seq,exoma,rna_seq,mi_rna,comprimento_telomerico,citocinas,cortisol,exossomos,prs,outros_bioinfo' %}
+                                        <div class="col-md-4 mb-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input campo-checkbox" type="checkbox" name="campos_selecionados" value="{{ value }}" id="campo_{{ value }}">
+                                                <label class="form-check-label" for="campo_{{ value }}">{{ label }}</label>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                
+                                <!-- Dados Clínicos -->
+                                <h6 class="text-warning border-bottom pb-2 mb-3">
+                                    <i class="bi bi-clipboard-pulse"></i> Dados Clínicos
+                                </h6>
+                                <div class="row mb-3">
+                                    {% for value, label in form.CAMPOS_DISPONIVEIS %}
+                                        {% if value in 'historico_materno,historico_gravidez,historico_familiar,info_parto,cars,qi,comunicacao_vineland,hab_dia_vineland,socializacao_vineland,adi_total,cbcl_internal,cbcl_external,score_psiquiatrico_mae,score_exposicao_ambiental,score_estresse_materno,escolaridade_materna,renda_familiar' %}
+                                        <div class="col-md-4 mb-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input campo-checkbox" type="checkbox" name="campos_selecionados" value="{{ value }}" id="campo_{{ value }}">
+                                                <label class="form-check-label" for="campo_{{ value }}">{{ label }}</label>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                
+                                <!-- Metadados -->
+                                <h6 class="text-muted border-bottom pb-2 mb-3">
+                                    <i class="bi bi-clock-history"></i> Metadados
+                                </h6>
+                                <div class="row mb-3">
+                                    {% for value, label in form.CAMPOS_DISPONIVEIS %}
+                                        {% if value in 'fonte_dados,data_cadastro,data_atualizacao' %}
+                                        <div class="col-md-4 mb-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input campo-checkbox" type="checkbox" name="campos_selecionados" value="{{ value }}" id="campo_{{ value }}">
+                                                <label class="form-check-label" for="campo_{{ value }}">{{ label }}</label>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success btn-lg w-100" id="btnExportar">
+                        <i class="bi bi-download"></i> <span id="textoBotao">Gerar e Baixar Arquivo</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Informações</h5>
+            </div>
+            <div class="card-body">
+                <h6>Formatos disponíveis:</h6>
+                <ul>
+                    <li><strong>Excel:</strong> Formato completo com todos os campos selecionados</li>
+                    <li><strong>CSV:</strong> Formato universal, compatível com todos os programas</li>
+                    <li><strong>Visualizar:</strong> Abre em nova aba para impressão (formato paisagem)</li>
+                </ul>
+                
+                <div class="alert alert-success mt-3">
+                    <small><i class="bi bi-printer"></i> <strong>Visualizar:</strong> Abre os dados em uma nova aba formatada para impressão. Use Ctrl+P para imprimir.</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Dicas</h5>
+            </div>
+            <div class="card-body">
+                <h6>Seleção de Campos:</h6>
+                <ul>
+                    <li>Use <strong>"Selecionar Todos"</strong> para marcar todos os campos</li>
+                    <li>Use <strong>"Desmarcar Todos"</strong> para limpar a seleção</li>
+                    <li><strong>Nenhum campo selecionado</strong> = exporta apenas os <strong>3 campos-chave</strong></li>
+                    <li>Campos organizados por categoria para facilitar</li>
+                </ul>
+                
+                <div class="alert alert-success mt-2">
+                    <small>
+                        <i class="bi bi-key"></i> <strong>Campos-Chave:</strong> Nome do Paciente, Data de Nascimento e Nome da Mãe
+                    </small>
+                </div>
+                
+                <div class="alert alert-info mt-3">
+                    <small><i class="bi bi-info-circle"></i> Os arquivos são gerados em tempo real com os dados mais atualizados.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const selecionarTodosBtn = document.getElementById('selecionarTodos');
+    const desmarcarTodosBtn = document.getElementById('desmarcarTodos');
+    const checkboxes = document.querySelectorAll('.campo-checkbox');
+    const formExportar = document.getElementById('formExportar');
+    const btnExportar = document.getElementById('btnExportar');
+    const textoBotao = document.getElementById('textoBotao');
+    
+    // Selecionar todos
+    selecionarTodosBtn.addEventListener('click', function() {
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = true;
+        });
+    });
+    
+    // Desmarcar todos
+    desmarcarTodosBtn.addEventListener('click', function() {
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+    });
+    
+    // Atualiza texto do botão e comportamento baseado no formato selecionado
+    const radiosFormato = document.querySelectorAll('input[name="formato"]');
+    
+    function atualizarFormulario() {
+        const formatoSelecionado = document.querySelector('input[name="formato"]:checked').value;
+        
+        if (formatoSelecionado === 'visualizar') {
+            formExportar.setAttribute('target', '_blank');  // Abre em nova aba
+            textoBotao.innerHTML = '<i class="bi bi-eye"></i> Visualizar e Imprimir';
+            btnExportar.classList.remove('btn-success');
+            btnExportar.classList.add('btn-info');
+        } else {
+            formExportar.removeAttribute('target');  // Download normal
+            textoBotao.innerHTML = 'Gerar e Baixar Arquivo';
+            btnExportar.classList.remove('btn-info');
+            btnExportar.classList.add('btn-success');
+        }
+    }
+    
+    // Atualiza ao mudar formato
+    radiosFormato.forEach(radio => {
+        radio.addEventListener('change', atualizarFormulario);
+    });
+    
+    // Configura estado inicial
+    atualizarFormulario();
+});
+</script>
+
+<style>
+    .form-check-label {
+        font-size: 0.9rem;
+    }
+    .card-body::-webkit-scrollbar {
+        width: 8px;
+    }
+    .card-body::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    .card-body::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+    }
+    .card-body::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+</style>
+{% endblock %}

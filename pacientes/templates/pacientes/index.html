@@ -1,0 +1,88 @@
+{% extends 'pacientes/base.html' %}
+
+{% block title %}Dashboard - Sistema de Pesquisa Médica{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card stat-card">
+            <div class="card-body">
+                <h5 class="card-title text-muted">Total de Pacientes</h5>
+                <h2 class="mb-0">{{ total_pacientes }}</h2>
+                <small class="text-muted">Cadastrados no sistema</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card" style="border-left-color: #e74c3c;">
+            <div class="card-body">
+                <h5 class="card-title text-muted">Conflitos Pendentes</h5>
+                <h2 class="mb-0">{{ conflitos_pendentes }}</h2>
+                <small class="text-muted">
+                    {% if conflitos_pendentes > 0 %}
+                        <a href="{% url 'resolver_conflitos' %}">Resolver agora</a>
+                    {% else %}
+                        Nenhum conflito
+                    {% endif %}
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card" style="border-left-color: #2ecc71;">
+            <div class="card-body">
+                <h5 class="card-title text-muted">Ações Rápidas</h5>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'criar_paciente' %}" class="btn btn-sm btn-primary">Novo Paciente</a>
+                    <a href="{% url 'upload_planilha' %}" class="btn btn-sm btn-success">Upload</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">Últimos Cadastros</h5>
+    </div>
+    <div class="card-body">
+        {% if ultimos_cadastros %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data Nascimento</th>
+                            <th>Projeto</th>
+                            <th>Fonte</th>
+                            <th>Data Cadastro</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for paciente in ultimos_cadastros %}
+                        <tr>
+                            <td>{{ paciente.nome_paciente }}</td>
+                            <td>{{ paciente.data_nascimento|date:"d/m/Y" }}</td>
+                            <td>{{ paciente.id_projeto|default:"-" }}</td>
+                            <td><span class="badge bg-info">{{ paciente.fonte_dados|default:"Manual" }}</span></td>
+                            <td>{{ paciente.data_cadastro|date:"d/m/Y H:i" }}</td>
+                            <td>
+                                <a href="{% url 'detalhe_paciente' paciente.pk %}" class="btn btn-sm btn-outline-primary">Ver</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-muted">Nenhum paciente cadastrado ainda.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

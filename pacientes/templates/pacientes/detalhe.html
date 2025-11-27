@@ -1,0 +1,84 @@
+{% extends 'pacientes/base.html' %}
+
+{% block title %}{{ paciente.nome_paciente }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ paciente.nome_paciente }}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{% url 'editar_paciente' paciente.pk %}" class="btn btn-warning">
+                <i class="bi bi-pencil"></i> Editar
+            </a>
+            <a href="{% url 'deletar_paciente' paciente.pk %}" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Deletar
+            </a>
+        </div>
+    </div>
+</div>
+
+{% if conflitos %}
+<div class="alert alert-warning">
+    <i class="bi bi-exclamation-triangle"></i>
+    Este paciente tem {{ conflitos.count }} conflito(s) pendente(s).
+    <a href="{% url 'resolver_conflitos' %}" class="alert-link">Resolver agora</a>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Dados Principais</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Nome:</strong> {{ paciente.nome_paciente }}</p>
+                <p><strong>Data de Nascimento:</strong> {{ paciente.data_nascimento|date:"d/m/Y" }}</p>
+                <p><strong>Nome da Mãe:</strong> {{ paciente.nome_mae }}</p>
+                <p><strong>Sexo:</strong> {{ paciente.sexo|default:"Não informado" }}</p>
+                <p><strong>CPF:</strong> {{ paciente.cpf|default:"Não informado" }}</p>
+                <p><strong>RG:</strong> {{ paciente.rg|default:"Não informado" }}</p>
+            </div>
+        </div>
+        
+        <div class="card mb-3">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Projeto</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>ID Projeto:</strong> {{ paciente.id_projeto|default:"Não informado" }}</p>
+                <p><strong>ID Único:</strong> {{ paciente.id_unico|default:"Não informado" }}</p>
+                <p><strong>Projeto Original:</strong> {{ paciente.projeto_original|default:"Não informado" }}</p>
+                <p><strong>Fonte dos Dados:</strong> <span class="badge bg-info">{{ paciente.fonte_dados|default:"Manual" }}</span></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Amostras Biológicas</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6"><strong>DNA:</strong> {{ paciente.dna|default:"—" }}</div>
+                    <div class="col-6"><strong>RNA:</strong> {{ paciente.rna|default:"—" }}</div>
+                    <div class="col-6"><strong>Sangue:</strong> {{ paciente.sangue|default:"—" }}</div>
+                    <div class="col-6"><strong>Plasma:</strong> {{ paciente.plasma|default:"—" }}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mb-3">
+            <div class="card-header bg-warning">
+                <h5 class="mb-0">Metadados</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Cadastrado em:</strong> {{ paciente.data_cadastro|date:"d/m/Y H:i" }}</p>
+                <p><strong>Última atualização:</strong> {{ paciente.data_atualizacao|date:"d/m/Y H:i" }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

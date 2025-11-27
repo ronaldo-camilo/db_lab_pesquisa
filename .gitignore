@@ -1,0 +1,257 @@
+# ============================================
+# GITIGNORE - Sistema de Pesquisa Médica TCC
+# ============================================
+
+# ============================================
+# PYTHON
+# ============================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ============================================
+# DJANGO
+# ============================================
+# Banco de dados local (NÃO ENVIAR!)
+*.sqlite3
+*.db
+db.sqlite3
+db.sqlite3-journal
+
+# Arquivos de log
+*.log
+local_settings.py
+
+# Media files (uploads de usuários)
+media/
+
+# Static files coletados (python manage.py collectstatic)
+staticfiles/
+static_root/
+
+# Django migrations (OPCIONAL: alguns projetos enviam, outros não)
+# Descomente se não quiser enviar migrations
+# */migrations/*.py
+# !*/migrations/__init__.py
+
+# ============================================
+# IDEs E EDITORES
+# ============================================
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ============================================
+# SISTEMA OPERACIONAL
+# ============================================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ============================================
+# EXCEL E DADOS SENSÍVEIS
+# ============================================
+# Planilhas originais com dados reais (NÃO ENVIAR DADOS REAIS!)
+Amostras_biologicas.xlsx
+Bioinformatica.xlsx
+Dados_clinicos.xlsx
+
+# Qualquer arquivo com dados de pacientes
+*_pacientes_*.xlsx
+*_pacientes_*.csv
+dados_reais/
+backup_dados/
+
+# Arquivos temporários do Excel
+~$*.xlsx
+~$*.xls
+
+# ============================================
+# NODE.JS (caso use npm para frontend)
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ============================================
+# DOCUMENTAÇÃO INTERNA (NÃO ENVIAR)
+# ============================================
+# Ignorar todos os arquivos .md (documentação interna)
+*.md
+
+# EXCETO o README.md (manter no repositório)
+!README.md
+
+# Outros arquivos de rascunho/temporários
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+rascunho/
+temp/
+tmp/
+
+# ============================================
+# OUTROS
+# ============================================
+# Certificados e chaves
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+*.pfx
+
+# Arquivos compactados
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Configurações locais
+local_config.py
+secrets.py
+
+# Cache do pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Sass
+.sass-cache/
+*.css.map
+
+# Redis
+dump.rdb
+
+# ============================================
+# ARQUIVOS DO CURSOR/TERMINALS
+# ============================================
+# Não enviar histórico de terminais
+.cursor/
+
+# ============================================
+# MANTER ESTES ARQUIVOS
+# ============================================
+# README.md ✅
+# requirements.txt ✅
+# manage.py ✅
+# Todos os .py do projeto ✅
+# Templates HTML ✅
+# Arquivos .md de documentação ✅
+# Estrutura de pastas ✅
+

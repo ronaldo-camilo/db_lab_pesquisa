@@ -1,0 +1,72 @@
+{% extends 'pacientes/base.html' %}
+
+{% block title %}Upload de Planilhas{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">Upload de Planilhas</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Importar Dados</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.arquivo.label }}</label>
+                        {{ form.arquivo }}
+                        <div class="form-text">{{ form.arquivo.help_text }}</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.tipo_planilha.label }}</label>
+                        {{ form.tipo_planilha }}
+                    </div>
+                    
+                    <div class="mb-3 form-check">
+                        {{ form.substituir_duplicatas }}
+                        <label class="form-check-label" for="{{ form.substituir_duplicatas.id_for_label }}">
+                            {{ form.substituir_duplicatas.label }}
+                        </label>
+                        <div class="form-text">{{ form.substituir_duplicatas.help_text }}</div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="bi bi-upload"></i> Fazer Upload e Processar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Instruções</h5>
+            </div>
+            <div class="card-body">
+                <h6>Como funciona:</h6>
+                <ol>
+                    <li>Selecione um arquivo Excel (.xlsx) ou CSV</li>
+                    <li>Escolha o tipo de planilha (ou deixe detectar automaticamente)</li>
+                    <li>O sistema verifica duplicatas usando: Nome, Data de Nascimento e Nome da Mãe</li>
+                    <li>Se houver conflitos, você será notificado</li>
+                </ol>
+                
+                <h6 class="mt-3">Tipos de resultado:</h6>
+                <ul>
+                    <li><strong>Novo:</strong> Paciente não existe, será criado</li>
+                    <li><strong>Atualizado:</strong> Campos vazios serão preenchidos</li>
+                    <li><strong>Conflito:</strong> Dados divergentes precisam de decisão</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

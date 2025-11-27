@@ -1,0 +1,297 @@
+{% extends 'pacientes/base.html' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ titulo }}</h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- CAMPOS PRINCIPAIS (OBRIGATÓRIOS) -->
+            <div class="bg-primary bg-opacity-10 p-3 rounded mb-4">
+                <h5 class="mb-3 text-primary">⭐ Dados Principais (Obrigatórios para Identificação)</h5>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label"><strong>{{ form.nome_paciente.label }}</strong></label>
+                        {{ form.nome_paciente }}
+                        {% if form.nome_paciente.errors %}<div class="text-danger">{{ form.nome_paciente.errors }}</div>{% endif %}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label"><strong>{{ form.data_nascimento.label }}</strong></label>
+                        {{ form.data_nascimento }}
+                        {% if form.data_nascimento.errors %}<div class="text-danger">{{ form.data_nascimento.errors }}</div>{% endif %}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label"><strong>{{ form.nome_mae.label }}</strong></label>
+                        {{ form.nome_mae }}
+                        {% if form.nome_mae.errors %}<div class="text-danger">{{ form.nome_mae.errors }}</div>{% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- IDENTIFICAÇÃO E PROJETO -->
+            <h5 class="mb-3 text-secondary border-bottom pb-2">📋 Identificação e Projeto</h5>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.id_projeto.label }}</label>
+                    {{ form.id_projeto }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.projeto_original.label }}</label>
+                    {{ form.projeto_original }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.sexo.label }}</label>
+                    {{ form.sexo }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.rg.label }}</label>
+                    {{ form.rg }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.cpf.label }}</label>
+                    {{ form.cpf }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.cid10.label }}</label>
+                    {{ form.cid10 }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.data_nascimento_mae.label }}</label>
+                    {{ form.data_nascimento_mae }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.id_familiar.label }}</label>
+                    {{ form.id_familiar }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">{{ form.id_lpc_biob.label }}</label>
+                    {{ form.id_lpc_biob }}
+                </div>
+            </div>
+
+            <!-- AMOSTRAS BIOLÓGICAS -->
+            <h5 class="mb-3 text-success border-bottom pb-2 mt-4">🧬 Amostras Biológicas</h5>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.amostra_biologica.label }}</label>
+                    {{ form.amostra_biologica }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.sangue.label }}</label>
+                    {{ form.sangue }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.plasma.label }}</label>
+                    {{ form.plasma }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.soro.label }}</label>
+                    {{ form.soro }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.pax_gene.label }}</label>
+                    {{ form.pax_gene }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.saliva.label }}</label>
+                    {{ form.saliva }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.scu.label }}</label>
+                    {{ form.scu }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.placenta.label }}</label>
+                    {{ form.placenta }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.placenta_ffpe.label }}</label>
+                    {{ form.placenta_ffpe }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.dna.label }}</label>
+                    {{ form.dna }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.rna.label }}</label>
+                    {{ form.rna }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.proteina.label }}</label>
+                    {{ form.proteina }}
+                </div>
+            </div>
+
+            <!-- BIOINFORMÁTICA -->
+            <h5 class="mb-3 text-info border-bottom pb-2 mt-4">🔬 Bioinformática</h5>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.metiloma.label }}</label>
+                    {{ form.metiloma }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.dnam_gene.label }}</label>
+                    {{ form.dnam_gene }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.dna_seq.label }}</label>
+                    {{ form.dna_seq }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.exoma.label }}</label>
+                    {{ form.exoma }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.rna_seq.label }}</label>
+                    {{ form.rna_seq }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.mi_rna.label }}</label>
+                    {{ form.mi_rna }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.comprimento_telomerico.label }}</label>
+                    {{ form.comprimento_telomerico }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.citocinas.label }}</label>
+                    {{ form.citocinas }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.cortisol.label }}</label>
+                    {{ form.cortisol }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.exossomos.label }}</label>
+                    {{ form.exossomos }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.prs.label }}</label>
+                    {{ form.prs }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.outros_bioinfo.label }}</label>
+                    {{ form.outros_bioinfo }}
+                </div>
+            </div>
+
+            <!-- DADOS CLÍNICOS - HISTÓRICOS -->
+            <h5 class="mb-3 text-warning border-bottom pb-2 mt-4">🏥 Dados Clínicos - Históricos</h5>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.historico_materno.label }}</label>
+                    {{ form.historico_materno }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.historico_gravidez.label }}</label>
+                    {{ form.historico_gravidez }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.historico_familiar.label }}</label>
+                    {{ form.historico_familiar }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.info_parto.label }}</label>
+                    {{ form.info_parto }}
+                </div>
+            </div>
+
+            <!-- DADOS CLÍNICOS - AVALIAÇÕES -->
+            <h5 class="mb-3 text-warning border-bottom pb-2 mt-4">📊 Dados Clínicos - Avaliações e Scores</h5>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.cars.label }}</label>
+                    {{ form.cars }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.qi.label }}</label>
+                    {{ form.qi }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.comunicacao_vineland.label }}</label>
+                    {{ form.comunicacao_vineland }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.hab_dia_vineland.label }}</label>
+                    {{ form.hab_dia_vineland }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.socializacao_vineland.label }}</label>
+                    {{ form.socializacao_vineland }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.adi_total.label }}</label>
+                    {{ form.adi_total }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.cbcl_internal.label }}</label>
+                    {{ form.cbcl_internal }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.cbcl_external.label }}</label>
+                    {{ form.cbcl_external }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.score_psiquiatrico_mae.label }}</label>
+                    {{ form.score_psiquiatrico_mae }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.score_exposicao_ambiental.label }}</label>
+                    {{ form.score_exposicao_ambiental }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.score_estresse_materno.label }}</label>
+                    {{ form.score_estresse_materno }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.escolaridade_materna.label }}</label>
+                    {{ form.escolaridade_materna }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">{{ form.renda_familiar.label }}</label>
+                    {{ form.renda_familiar }}
+                </div>
+            </div>
+
+            <!-- METADADOS -->
+            <h5 class="mb-3 text-muted border-bottom pb-2 mt-4">📝 Informações Adicionais</h5>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">{{ form.fonte_dados.label }}</label>
+                    {{ form.fonte_dados }}
+                    <small class="form-text text-muted">Origem dos dados (ex: Manual, Amostras Biológicas, etc.)</small>
+                </div>
+            </div>
+
+            <!-- BOTÕES -->
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 pt-3 border-top">
+                <a href="{% url 'listar_pacientes' %}" class="btn btn-secondary btn-lg">
+                    <i class="bi bi-x-circle"></i> Cancelar
+                </a>
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-check-circle"></i> Salvar Paciente
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.3rem;
+    }
+    .form-control, .form-select {
+        font-size: 0.95rem;
+    }
+    h5 {
+        font-weight: 600;
+    }
+</style>
+{% endblock %}

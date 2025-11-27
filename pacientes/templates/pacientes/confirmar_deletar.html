@@ -1,0 +1,31 @@
+{% extends 'pacientes/base.html' %}
+
+{% block title %}Confirmar Exclusão{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">Confirmar Exclusão</h1>
+</div>
+
+<div class="alert alert-danger">
+    <h4 class="alert-heading"><i class="bi bi-exclamation-triangle"></i> Atenção!</h4>
+    <p>Você está prestes a deletar o paciente:</p>
+    <hr>
+    <p class="mb-0"><strong>{{ paciente.nome_paciente }}</strong> (Nasc: {{ paciente.data_nascimento|date:"d/m/Y" }})</p>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <p>Esta ação não pode ser desfeita. Todos os dados relacionados a este paciente serão permanentemente removidos.</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{% url 'detalhe_paciente' paciente.pk %}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-danger">Sim, Deletar Permanentemente</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
