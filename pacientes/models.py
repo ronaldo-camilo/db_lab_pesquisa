@@ -123,14 +123,14 @@ class Paciente(models.Model):
     @classmethod
     def buscar_duplicata(cls, nome_paciente, data_nascimento, nome_mae):
         """
-        Busca pacientes duplicados com base nos 3 campos principais.
+        Busca pacientes duplicados com base em Nome + Data de Nascimento.
+        Nome da mãe é verificado como campo de conflito se divergir.
         Retorna o paciente encontrado ou None.
         """
         try:
             return cls.objects.get(
                 nome_paciente__iexact=nome_paciente,
-                data_nascimento=data_nascimento,
-                nome_mae__iexact=nome_mae
+                data_nascimento=data_nascimento
             )
         except cls.DoesNotExist:
             return None

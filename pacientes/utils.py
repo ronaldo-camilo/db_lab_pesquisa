@@ -196,8 +196,9 @@ def processar_linha(dados, criar_conflitos=True):
         campos_atualizados = []
         
         for campo, valor_novo in dados.items():
-            if campo in ['nome_paciente', 'data_nascimento', 'nome_mae']:
-                # Pula os campos de identificação
+            if campo in ['nome_paciente', 'data_nascimento']:
+                # Pula APENAS os campos de identificação (nome e data)
+                # nome_mae agora pode gerar conflito
                 continue
             
             valor_existente = getattr(paciente_existente, campo, None)
