@@ -165,7 +165,7 @@
                                 </h6>
                                 <div class="row mb-3">
                                     {% for value, label in form.CAMPOS_DISPONIVEIS %}
-                                        {% if value in 'fonte_dados,data_cadastro,data_atualizacao' %}
+                                        {% if value in 'data_cadastro,data_atualizacao' %}
                                         <div class="col-md-4 mb-2">
                                             <div class="form-check">
                                                 <input class="form-check-input campo-checkbox" type="checkbox" name="campos_selecionados" value="{{ value }}" id="campo_{{ value }}">

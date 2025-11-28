@@ -362,7 +362,6 @@ def exportar_excel(pacientes, campos_selecionados=None):
         'score_estresse_materno': 'Score Estresse Materno',
         'escolaridade_materna': 'Escolaridade Materna',
         'renda_familiar': 'Renda Familiar',
-        'fonte_dados': 'Fonte Dados',
         'data_cadastro': 'Data Cadastro',
         'data_atualizacao': 'Data Atualização',
     }
@@ -474,7 +473,6 @@ def exportar_csv(pacientes, campos_selecionados=None):
         'score_estresse_materno': 'Score Estresse Materno',
         'escolaridade_materna': 'Escolaridade Materna',
         'renda_familiar': 'Renda Familiar',
-        'fonte_dados': 'Fonte Dados',
         'data_cadastro': 'Data Cadastro',
         'data_atualizacao': 'Data Atualização',
     }
@@ -579,7 +577,6 @@ def visualizar_dados(request, pacientes, campos_selecionados=None):
         'score_estresse_materno': 'Score Estresse Mat.',
         'escolaridade_materna': 'Escolaridade Mat.',
         'renda_familiar': 'Renda Familiar',
-        'fonte_dados': 'Fonte Dados',
         'data_cadastro': 'Data Cadastro',
         'data_atualizacao': 'Data Atualização',
     }

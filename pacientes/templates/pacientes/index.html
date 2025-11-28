@@ -58,7 +58,6 @@
                             <th>Nome</th>
                             <th>Data Nascimento</th>
                             <th>Projeto</th>
-                            <th>Fonte</th>
                             <th>Data Cadastro</th>
                             <th>Ações</th>
                         </tr>
@@ -69,7 +68,6 @@
                             <td>{{ paciente.nome_paciente }}</td>
                             <td>{{ paciente.data_nascimento|date:"d/m/Y" }}</td>
                             <td>{{ paciente.id_projeto|default:"-" }}</td>
-                            <td><span class="badge bg-info">{{ paciente.fonte_dados|default:"Manual" }}</span></td>
                             <td>{{ paciente.data_cadastro|date:"d/m/Y H:i" }}</td>
                             <td>
                                 <a href="{% url 'detalhe_paciente' paciente.pk %}" class="btn btn-sm btn-outline-primary">Ver</a>

@@ -93,13 +93,6 @@ class Paciente(models.Model):
     # ===== METADADOS =====
     data_cadastro = models.DateTimeField(auto_now_add=True, verbose_name="Data de Cadastro")
     data_atualizacao = models.DateTimeField(auto_now=True, verbose_name="Data de Atualização")
-    fonte_dados = models.CharField(
-        max_length=100,
-        null=True,
-        blank=True,
-        verbose_name="Fonte dos Dados",
-        help_text="Origem: Amostras Biológicas, Bioinformática ou Dados Clínicos"
-    )
     
     class Meta:
         verbose_name = "Paciente"

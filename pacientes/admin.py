@@ -9,10 +9,9 @@ class PacienteAdmin(admin.ModelAdmin):
         'data_nascimento',
         'sexo',
         'id_projeto',
-        'fonte_dados',
         'data_cadastro'
     ]
-    list_filter = ['sexo', 'fonte_dados', 'data_cadastro']
+    list_filter = ['sexo', 'data_cadastro']
     search_fields = ['nome_paciente', 'nome_mae', 'cpf', 'id_projeto']
     date_hierarchy = 'data_cadastro'
     
@@ -53,7 +52,7 @@ class PacienteAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
         ('Metadados', {
-            'fields': ('fonte_dados', 'data_cadastro', 'data_atualizacao'),
+            'fields': ('data_cadastro', 'data_atualizacao'),
             'classes': ('collapse',)
         }),
     )

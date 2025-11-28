@@ -150,7 +150,6 @@
                             <th><i class="bi bi-calendar"></i> Data Nasc.</th>
                             <th><i class="bi bi-person-heart"></i> Nome da Mãe</th>
                             <th>Projeto</th>
-                            <th>Fonte</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -162,11 +161,6 @@
                             <td>{{ paciente.data_nascimento|date:"d/m/Y" }}</td>
                             <td>{{ paciente.nome_mae }}</td>
                             <td>{{ paciente.id_projeto|default:"-" }}</td>
-                            <td>
-                                <span class="badge bg-secondary">
-                                    {{ paciente.fonte_dados|default:"Manual" }}
-                                </span>
-                            </td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <a href="{% url 'detalhe_paciente' paciente.pk %}" 

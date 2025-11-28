@@ -26,9 +26,7 @@ class PacienteForm(forms.ModelForm):
             'info_parto', 'cars', 'qi', 'comunicacao_vineland', 'hab_dia_vineland',
             'socializacao_vineland', 'adi_total', 'cbcl_internal', 'cbcl_external',
             'score_psiquiatrico_mae', 'score_exposicao_ambiental', 'score_estresse_materno',
-            'escolaridade_materna', 'renda_familiar',
-            # Metadados
-            'fonte_dados'
+            'escolaridade_materna', 'renda_familiar'
         ]
         widgets = {
             'data_nascimento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
@@ -180,7 +178,6 @@ class FiltroExportacaoForm(forms.Form):
         ('renda_familiar', 'Renda Familiar'),
         
         # Metadados
-        ('fonte_dados', 'Fonte dos Dados'),
         ('data_cadastro', 'Data de Cadastro'),
         ('data_atualizacao', 'Data de Atualização'),
     ]

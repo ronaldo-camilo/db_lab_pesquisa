@@ -95,8 +95,7 @@ def mapear_colunas_amostras(row):
         'placenta_ffpe': normalizar_valor(row.get('Placenta_FFPE')),
         'dna': normalizar_valor(row.get('DNA')),
         'rna': normalizar_valor(row.get('RNA')),
-        'proteina': normalizar_valor(row.get('Proteína')),
-        'fonte_dados': 'Amostras Biológicas'
+        'proteina': normalizar_valor(row.get('Proteína'))
     }
 
 
@@ -122,8 +121,7 @@ def mapear_colunas_bioinfo(row):
         'cortisol': normalizar_valor(row.get('Cortisol')),
         'exossomos': normalizar_valor(row.get('Exossomos')),
         'prs': normalizar_valor(row.get('PRS')),
-        'outros_bioinfo': normalizar_valor(row.get('Outros')),
-        'fonte_dados': 'Bioinformática'
+        'outros_bioinfo': normalizar_valor(row.get('Outros'))
     }
 
 
@@ -160,8 +158,7 @@ def mapear_colunas_clinicos(row):
         'score_exposicao_ambiental': normalizar_valor(row.get('Score exposição ambiental na gestação')),
         'score_estresse_materno': normalizar_valor(row.get('Score estresse materno')),
         'escolaridade_materna': normalizar_valor(row.get('Escolaridade materna')),
-        'renda_familiar': normalizar_valor(row.get('Renda familiar')),
-        'fonte_dados': 'Dados Clínicos'
+        'renda_familiar': normalizar_valor(row.get('Renda familiar'))
     }
 
 
